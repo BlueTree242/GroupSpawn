@@ -1,0 +1,10 @@
+name: GroupSpawn
+authors: [Blue_Tree]
+version: 1.0
+main: com.bluetree.groupspawn.Main
+api-version: "1.13"
+depend: [Vault]
+
+commands:
+  setspawn:
+    aliases: [gs]
