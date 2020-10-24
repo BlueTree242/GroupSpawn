@@ -1,17 +1,13 @@
 package com.bluetree.groupspawn;
 
+import net.md_5.bungee.api.ChatColor;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.command.TabCompleter;
-
-import net.md_5.bungee.api.ChatColor;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,74 +15,73 @@ import java.util.Map;
 public class Main extends JavaPlugin {
 
 
-	public final Map<String, Location> spawns = new HashMap<>();
-	public void onEnable() {
-       spawns.clear();
-       loadConfigFile();
-		getServer().getPluginManager().registerEvents(new Events(this), this);
-		this.saveDefaultConfig();
-		this.reloadConfig();
-		this.getCommand("setspawn").setExecutor(new setspawnCommand(this));
-		getLogger().info(ChatColor.GREEN + "Enabled GroupSpawn");
-		return;
-		
-		
+    private static Permission perms = null;
+    public final Map<String, Location> spawns = new HashMap<>();
 
-	}
-
-	@Override
-	public void onDisable() {
-		spawns.clear();
-		getLogger().info(ChatColor.RED + "Disabled GroupSpawn");
-	}
-
-	public void loadConfigFile() {
+    public void onEnable() {
         spawns.clear();
-		this.saveDefaultConfig();
-		this.reloadConfig();
-		ConfigurationSection warpsSection = getConfig().getConfigurationSection("spawns");
-		for (String spawnname : warpsSection.getKeys(false)) {
-			ConfigurationSection spawnInfo = warpsSection.getConfigurationSection(spawnname);
-			String worldName = spawnInfo.getString("world");
-			double x = spawnInfo.getDouble("x");
-			double y = spawnInfo.getDouble("y");
-			double z = spawnInfo.getDouble("z");
-			double yaw = spawnInfo.getDouble("Yaw");
-			double Pitch = spawnInfo.getDouble("Pitch");
-
-			World world = Bukkit.getWorld(worldName);
-			spawns.put(spawnname,new Location(world, x, y, z));
-		}
+        loadConfigFile();
+        getServer().getPluginManager().registerEvents(new Events(this), this);
+        this.saveDefaultConfig();
+        this.reloadConfig();
+        this.getCommand("setspawn").setExecutor(new setspawnCommand(this));
+        getLogger().info(ChatColor.GREEN + "Enabled GroupSpawn");
+        return;
 
 
-		}
-	public void reloadConfigFile() {
+    }
+
+    @Override
+    public void onDisable() {
         spawns.clear();
-		this.saveConfig();
-		this.reloadConfig();
-		ConfigurationSection warpsSection = getConfig().getConfigurationSection("spawns");
-		for (String spawnname : warpsSection.getKeys(false)) {
-			ConfigurationSection spawnInfo = warpsSection.getConfigurationSection(spawnname);
-			String worldName = spawnInfo.getString("world");
-			double x = spawnInfo.getDouble("x");
-			double y = spawnInfo.getDouble("y");
-			double z = spawnInfo.getDouble("z");
-			double yaw = spawnInfo.getDouble("Yaw");
-			double Pitch = spawnInfo.getDouble("Pitch");
+        getLogger().info(ChatColor.RED + "Disabled GroupSpawn");
+    }
 
-			World world = Bukkit.getWorld(worldName);
-			spawns.put(spawnname, new Location(world, x, y, z));
-		}
-	}
-		private static Permission perms = null;
-	private boolean setupPermissions() {
-		RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
-		perms = rsp.getProvider();
-		return perms != null;
-	}
-	
+    public void loadConfigFile() {
+        spawns.clear();
+        this.saveDefaultConfig();
+        this.reloadConfig();
+        ConfigurationSection spawnsSection = getConfig().getConfigurationSection("spawns");
+        for (String spawnname : spawnsSection.getKeys(false)) {
+            ConfigurationSection spawnInfo = spawnsSection.getConfigurationSection(spawnname);
+            String worldName = spawnInfo.getString("world");
+            double x = spawnInfo.getDouble("x");
+            double y = spawnInfo.getDouble("y");
+            double z = spawnInfo.getDouble("z");
+            double yaw = spawnInfo.getDouble("Yaw");
+            double Pitch = spawnInfo.getDouble("Pitch");
+
+            World world = Bukkit.getWorld(worldName);
+            spawns.put(spawnname, new Location(world, x, y, z));
+        }
 
 
+    }
+
+    public void reloadConfigFile() {
+        spawns.clear();
+        this.saveConfig();
+        this.reloadConfig();
+        ConfigurationSection warpsSection = getConfig().getConfigurationSection("spawns");
+        for (String spawnname : warpsSection.getKeys(false)) {
+            ConfigurationSection spawnInfo = warpsSection.getConfigurationSection(spawnname);
+            String worldName = spawnInfo.getString("world");
+            double x = spawnInfo.getDouble("x");
+            double y = spawnInfo.getDouble("y");
+            double z = spawnInfo.getDouble("z");
+            double yaw = spawnInfo.getDouble("Yaw");
+            double Pitch = spawnInfo.getDouble("Pitch");
+
+            World world = Bukkit.getWorld(worldName);
+            spawns.put(spawnname, new Location(world, x, y, z));
+        }
+    }
+
+    private boolean setupPermissions() {
+        RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
+        perms = rsp.getProvider();
+        return perms != null;
+    }
 
 
 }

@@ -16,13 +16,13 @@ public class setspawnCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(ChatColor.RED + "You are not a Player.");
+            core.spawns.clear();
             return true;
         }
         if (args.length == 0) {
             sender.sendMessage(ChatColor.AQUA + "Usage: " + ChatColor.BLUE + "/" + label + " <rank/group>");
             return true;
-        }
-        else if (args.length == 1) {
+        } else if (args.length == 1) {
             core.getConfig().set("spawns." + args[0] + ".world", ((Player) sender).getLocation().getWorld().getName());
             core.getConfig().set("spawns." + args[0] + ".X", ((Player) sender).getLocation().getBlockX());
             core.getConfig().set("spawns." + args[0] + ".Y", ((Player) sender).getLocation().getBlockY());
@@ -34,6 +34,6 @@ public class setspawnCommand implements CommandExecutor {
             sender.sendMessage(ChatColor.AQUA + "Added group " + args[0]);
         }
 
-    return true;
+        return true;
     }
 }
