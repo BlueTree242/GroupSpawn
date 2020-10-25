@@ -17,7 +17,7 @@ public class Events implements Listener {
 
     @EventHandler
     public void playerRespawn(PlayerRespawnEvent event) {
-        Location destination = core.spawns.get("owner");
+        Location destination = core.spawns.get(perms.getPrimaryGroup(event.getPlayer()));
         if (destination == null) {
             event.getPlayer().sendMessage("It doesnt work");
             return;

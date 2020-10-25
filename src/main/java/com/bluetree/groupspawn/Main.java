@@ -45,14 +45,14 @@ public class Main extends JavaPlugin {
         for (String spawnname : spawnsSection.getKeys(false)) {
             ConfigurationSection spawnInfo = spawnsSection.getConfigurationSection(spawnname);
             String worldName = spawnInfo.getString("world");
-            double x = spawnInfo.getDouble("x");
-            double y = spawnInfo.getDouble("y");
-            double z = spawnInfo.getDouble("z");
+            double X = spawnInfo.getDouble("X");
+            double Y = spawnInfo.getDouble("Y");
+            double Z = spawnInfo.getDouble("Z");
             double yaw = spawnInfo.getDouble("Yaw");
             double Pitch = spawnInfo.getDouble("Pitch");
 
             World world = Bukkit.getWorld(worldName);
-            spawns.put(spawnname, new Location(world, x, y, z));
+            spawns.put(spawnname, new Location(world, X, Y, Z));
         }
 
 
@@ -66,14 +66,15 @@ public class Main extends JavaPlugin {
         for (String spawnname : warpsSection.getKeys(false)) {
             ConfigurationSection spawnInfo = warpsSection.getConfigurationSection(spawnname);
             String worldName = spawnInfo.getString("world");
-            double x = spawnInfo.getDouble("x");
-            double y = spawnInfo.getDouble("y");
-            double z = spawnInfo.getDouble("z");
+            double X = spawnInfo.getDouble("X");
+            double Y = spawnInfo.getDouble("Y");
+            double Z = spawnInfo.getDouble("Z");
             double yaw = spawnInfo.getDouble("Yaw");
             double Pitch = spawnInfo.getDouble("Pitch");
 
             World world = Bukkit.getWorld(worldName);
-            spawns.put(spawnname, new Location(world, x, y, z));
+            spawns.put(spawnname, new Location(world, X, Y, Z));
+
         }
     }
 
