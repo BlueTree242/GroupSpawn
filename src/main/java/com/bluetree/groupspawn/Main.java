@@ -14,8 +14,12 @@ import java.util.Map;
 
 public class Main extends JavaPlugin {
 
+    public Permission getVault() {
+        return perms;
+    }
 
-    private static Permission perms = null;
+
+    private Permission perms;
     public final Map<String, Location> spawns = new HashMap<>();
 
     public void onEnable() {
