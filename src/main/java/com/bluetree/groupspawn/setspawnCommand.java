@@ -31,7 +31,7 @@ public class setspawnCommand implements CommandExecutor {
             core.getConfig().set("spawns." + args[0] + ".Pitch", ((Player) sender).getLocation().getPitch());
 
             core.reloadConfigFile();
-            sender.sendMessage(ChatColor.AQUA + "Added group " + args[0]);
+            sender.sendMessage(ChatColor.AQUA + "Added group " + ChatColor.RED + args[0]);
         }
 
         return true;

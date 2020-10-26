@@ -7,4 +7,6 @@ depend: [Vault]
 
 commands:
   setspawn:
-    aliases: [gs]
+    permission: gropspawn.addspawn
+  removespawn:
+    permission: groupspawn.removespawn

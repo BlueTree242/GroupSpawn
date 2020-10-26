@@ -28,8 +28,16 @@ public class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new Events(this), this);
         this.saveDefaultConfig();
         this.reloadConfig();
+        this.getCommand("removespawn").setExecutor(new RemoveSpawnCommand(this));
+
+        getCommand("removespawn").setPermissionMessage(ChatColor.translateAlternateColorCodes('&', "&cYou cannot use this command."));
+        getCommand("removespawn").setTabCompleter(new RemoveSpawnTabCompleter(this));
+
+        getCommand("setspawn").setPermissionMessage(ChatColor.translateAlternateColorCodes('&', "&cYou cannot use this command."));
         this.getCommand("setspawn").setExecutor(new setspawnCommand(this));
+        this.getCommand("setspawn").setTabCompleter(new SetSpawnTabCompleter(this));
         getLogger().info(ChatColor.GREEN + "Enabled GroupSpawn");
+        setupPermissions();
         return;
 
 
@@ -42,6 +50,8 @@ public class Main extends JavaPlugin {
     }
 
     public void loadConfigFile() {
+        if (this.getConfig().getConfigurationSection("spawns") == null) return;
+
         spawns.clear();
         this.saveDefaultConfig();
         this.reloadConfig();
@@ -57,6 +67,7 @@ public class Main extends JavaPlugin {
 
             World world = Bukkit.getWorld(worldName);
             spawns.put(spawnname, new Location(world, X, Y, Z));
+
         }
 
 
@@ -66,6 +77,7 @@ public class Main extends JavaPlugin {
         spawns.clear();
         this.saveConfig();
         this.reloadConfig();
+        if (this.getConfig().getConfigurationSection("spawns") == null) return;
         ConfigurationSection warpsSection = getConfig().getConfigurationSection("spawns");
         for (String spawnname : warpsSection.getKeys(false)) {
             ConfigurationSection spawnInfo = warpsSection.getConfigurationSection(spawnname);
