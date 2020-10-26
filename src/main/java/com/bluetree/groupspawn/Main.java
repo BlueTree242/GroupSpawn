@@ -10,6 +10,7 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Main extends JavaPlugin {
@@ -23,11 +24,27 @@ public class Main extends JavaPlugin {
     public final Map<String, Location> spawns = new HashMap<>();
 
     public void onEnable() {
+        if (Bukkit.getPluginManager().getPlugin("Vault") == null) {
+            getLogger().warning("Vault is not installed. please download it at https://www.spigotmc.org/resources/vault.34315/");
+
+            this.setEnabled(false);
+
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return;
+        }
+
         spawns.clear();
         loadConfigFile();
         getServer().getPluginManager().registerEvents(new Events(this), this);
         this.saveDefaultConfig();
         this.reloadConfig();
+        this.getCommand("groupspawn").setExecutor(new groupspawnCommand(this));
+        this.getCommand("groupspawn").setTabCompleter(new groupspawnTabCompleter());
+
         this.getCommand("removespawn").setExecutor(new RemoveSpawnCommand(this));
 
         getCommand("removespawn").setPermissionMessage(ChatColor.translateAlternateColorCodes('&', "&cYou cannot use this command."));
@@ -62,11 +79,11 @@ public class Main extends JavaPlugin {
             double X = spawnInfo.getDouble("X");
             double Y = spawnInfo.getDouble("Y");
             double Z = spawnInfo.getDouble("Z");
-            double yaw = spawnInfo.getDouble("Yaw");
-            double Pitch = spawnInfo.getDouble("Pitch");
+            float Yaw = (float) spawnInfo.getDouble("Pitch");
+            float Pitch = (float) spawnInfo.getDouble("Yaw");
 
             World world = Bukkit.getWorld(worldName);
-            spawns.put(spawnname, new Location(world, X, Y, Z));
+            spawns.put(spawnname, new Location(world, X, Y, Z, Yaw, Pitch));
 
         }
 
@@ -85,11 +102,11 @@ public class Main extends JavaPlugin {
             double X = spawnInfo.getDouble("X");
             double Y = spawnInfo.getDouble("Y");
             double Z = spawnInfo.getDouble("Z");
-            double yaw = spawnInfo.getDouble("Yaw");
-            double Pitch = spawnInfo.getDouble("Pitch");
+            float yaw = (float) spawnInfo.getDouble("Yaw");
+            float Pitch = (float) spawnInfo.getDouble("Pitch");
 
             World world = Bukkit.getWorld(worldName);
-            spawns.put(spawnname, new Location(world, X, Y, Z));
+            spawns.put(spawnname, new Location(world, X, Y, Z, yaw, Pitch));
 
         }
     }

@@ -19,10 +19,17 @@ public class SetSpawnTabCompleter implements TabCompleter {
 
     public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
         List<String> result = new ArrayList<String>();
+        arg0.clear();
+
+        List<String> arg0 = new ArrayList<String>();
+        for (String target : core.getVault().getGroups()) {
+            arg0.add(target);
+        }
+        arg0.add("not-configured");
         if (!sender.hasPermission("groupspawn.addspawn")) return null;
         if (args.length == 1) {
 
-            for (String a :core.getVault().getGroups() ) {
+            for (String a :arg0 ) {
                 if (a.toLowerCase().startsWith(args[0].toLowerCase()))
                     result.add(a);
             }

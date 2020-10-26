@@ -23,6 +23,10 @@ public class RemoveSpawnCommand implements CommandExecutor {
             sender.sendMessage(ChatColor.AQUA + "Usage: " + ChatColor.BLUE + "/" + label + " <rank/group>");
             return true;
         } else if (args.length == 1) {
+            if (core.getConfig().getConfigurationSection("spawns." + args[0]) == null) {
+                sender.sendMessage(ChatColor.RED + "Spawn " + args[0] + " does not exist in the config.");
+                return true;
+            }
             core.getConfig().set("spawns." + args[0], (null));
             core.reloadConfigFile();
             sender.sendMessage(ChatColor.AQUA + "Removed group " + ChatColor.RED + args[0]);
