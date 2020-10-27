@@ -1,1 +1,2 @@
-start: 'l'
+#spawns should be empty by default.
+spawns:

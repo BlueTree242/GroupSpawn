@@ -1,4 +1,10 @@
 com\bluetree\groupspawn\Main.class
+com\bluetree\groupspawn\spawnTabCompleter.class
+com\bluetree\groupspawn\spawnCommand.class
+com\bluetree\groupspawn\groupspawnCommand.class
 com\bluetree\groupspawn\setspawnCommand.class
+com\bluetree\groupspawn\SetSpawnTabCompleter.class
+com\bluetree\groupspawn\RemoveSpawnCommand.class
 com\bluetree\groupspawn\Events.class
-com\bluetree\groupspawn\StatCommand.class
+com\bluetree\groupspawn\groupspawnTabCompleter.class
+com\bluetree\groupspawn\RemoveSpawnTabCompleter.class
