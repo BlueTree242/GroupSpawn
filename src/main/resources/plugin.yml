@@ -1,6 +1,6 @@
 name: GroupSpawn
 authors: [Blue_Tree]
-version: 1.0
+version: 1.0 SNAPSHOT 1
 main: com.bluetree.groupspawn.Main
 api-version: "1.13"
 softdepend: [Vault]
@@ -8,9 +8,11 @@ softdepend: [Vault]
 commands:
   setspawn:
     aliases: [ss]
-    permission: gropspawn.addspawn
+    permission: groupspawn.addspawn
   removespawn:
     aliases: [rs, delspawn]
     permission: groupspawn.removespawn
   groupspawn:
     aliases: [gs]
+  spawn:
+    permission: groupspawn.spawn

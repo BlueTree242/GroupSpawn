@@ -1,4 +1,6 @@
 com\bluetree\groupspawn\Main.class
+com\bluetree\groupspawn\spawnTabCompleter.class
+com\bluetree\groupspawn\spawnCommand.class
 com\bluetree\groupspawn\groupspawnCommand.class
 com\bluetree\groupspawn\setspawnCommand.class
 com\bluetree\groupspawn\SetSpawnTabCompleter.class

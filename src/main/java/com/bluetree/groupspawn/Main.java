@@ -42,6 +42,11 @@ public class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new Events(this), this);
         this.saveDefaultConfig();
         this.reloadConfig();
+        this.getCommand("spawn").setExecutor(new spawnCommand(this));
+        this.getCommand("spawn").setTabCompleter(new spawnTabCompleter(this));
+
+        getCommand("spawn").setPermissionMessage(ChatColor.translateAlternateColorCodes('&', "&cYou cannot use this command."));
+
         this.getCommand("groupspawn").setExecutor(new groupspawnCommand(this));
         this.getCommand("groupspawn").setTabCompleter(new groupspawnTabCompleter());
 
