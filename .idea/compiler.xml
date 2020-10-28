@@ -10,7 +10,12 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="GroupSpawn" target="8" />
+      <module name="GroupSpawn" target="11" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="GroupSpawn" options="--add-exports java.base/jdk.internal.platform=ALL-UNNAMED" />
+    </option>
   </component>
 </project>

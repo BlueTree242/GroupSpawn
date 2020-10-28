@@ -1,7 +1,9 @@
 package com.bluetree.groupspawn;
 
+
 import net.md_5.bungee.api.ChatColor;
 import net.milkbowl.vault.permission.Permission;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -60,6 +62,8 @@ public class Main extends JavaPlugin {
         this.getCommand("setspawn").setTabCompleter(new SetSpawnTabCompleter(this));
         getLogger().info(ChatColor.GREEN + "Enabled GroupSpawn");
         setupPermissions();
+        int pluginId = 9238;
+        Metrics metrics = new Metrics(this, pluginId);
         new UpdateChecker(this, 12345).getVersion(version -> {
             if (this.getDescription().getVersion().equalsIgnoreCase(version.replace("_", " "))) {
                 getLogger().info(ChatColor.GREEN + "No new version available. (" + version.replace("_", " ") + ")");
