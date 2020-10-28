@@ -30,6 +30,17 @@ public class RemoveSpawnCommand implements CommandExecutor {
             core.getConfig().set("spawns." + args[0], (null));
             core.reloadConfigFile();
             sender.sendMessage(ChatColor.AQUA + "Removed group " + ChatColor.RED + args[0]);
+            if (sender.hasPermission("groupspawn.updatechecker")) {
+                new UpdateChecker(core, 12345).getVersion(version -> {
+                    if (core.getDescription().getVersion().equalsIgnoreCase(version.replace("_", " "))) {
+                    } else {
+
+                        sender.sendMessage("A new version of " + net.md_5.bungee.api.ChatColor.GOLD + "GroupSpawn" + net.md_5.bungee.api.ChatColor.RESET + " is available: " + net.md_5.bungee.api.ChatColor.YELLOW + version.replace("_", " ") + net.md_5.bungee.api.ChatColor.RESET + " (You are currently using " + net.md_5.bungee.api.ChatColor.GOLD + core.getDescription().getVersion() + net.md_5.bungee.api.ChatColor.RESET + "). " + " https://bit.ly/2TzELra") ;
+
+
+                    }
+                });
+            }
         }
 
         return true;

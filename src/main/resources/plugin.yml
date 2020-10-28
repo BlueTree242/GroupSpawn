@@ -1,6 +1,6 @@
 name: GroupSpawn
 authors: [Blue_Tree]
-version: 1.0 SNAPSHOT 1
+version: 1.0 SNAPSHOT 2
 main: com.bluetree.groupspawn.Main
 api-version: "1.13"
 softdepend: [Vault]

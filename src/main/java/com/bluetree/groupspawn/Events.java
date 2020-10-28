@@ -1,11 +1,16 @@
 package com.bluetree.groupspawn;
 
+import net.md_5.bungee.api.ChatColor;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 public class Events implements Listener {
 
@@ -18,6 +23,15 @@ public class Events implements Listener {
 
     @EventHandler
     public void playerRespawn(PlayerRespawnEvent event) {
+        if (event.getPlayer().hasPermission("groupspawn.updatechecker")) {
+            new UpdateChecker(core, 12345).getVersion(version -> {
+                if (core.getDescription().getVersion().equalsIgnoreCase(version.replace("_", " "))) {
+                } else {
+                    event.getPlayer().sendMessage("A new version of " + ChatColor.GOLD + "GroupSpawn" + ChatColor.RESET + " is available: " + ChatColor.YELLOW + version.replace("_", " ") + ChatColor.RESET + " (You are currently using " + ChatColor.GOLD + core.getDescription().getVersion() + ChatColor.RESET + "). https://bit.ly/2TzELra");
+
+                }
+            });
+        }
         Location destination = core.spawns.get(core.getVault().getPrimaryGroup(event.getPlayer()));
         if (destination == null) {
             Location defloc = core.spawns.get("not-configured");
@@ -40,6 +54,25 @@ public class Events implements Listener {
     @EventHandler
     public void playerJoined(PlayerJoinEvent event) {
         if (event.getPlayer().hasPlayedBefore()) {
+            if (!event.getPlayer().hasPermission("groupspawn.updatechecker")) return;
+            Timer yourtimer = new Timer(true);
+            yourtimer.schedule(new TimerTask()
+            {
+
+
+                @Override
+                public void run() {
+                    new UpdateChecker(core, 12345).getVersion(version -> {
+                        if (core.getDescription().getVersion().equalsIgnoreCase(version.replace("_", " "))) {
+                        } else {
+                            event.getPlayer().sendMessage("A new version of " + ChatColor.GOLD + "GroupSpawn" + ChatColor.RESET + " is available: " + ChatColor.YELLOW + version.replace("_", " ") + ChatColor.RESET + " (You are currently using " + ChatColor.GOLD + core.getDescription().getVersion() + ChatColor.RESET + "). https://bit.ly/2TzELra");
+
+                        }
+                    });
+
+                }
+            }, 5000);
+
             return;
         }
         Location destination = core.spawns.get(core.getVault().getPrimaryGroup(event.getPlayer()));
