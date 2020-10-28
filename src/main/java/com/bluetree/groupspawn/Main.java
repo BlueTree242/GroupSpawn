@@ -60,6 +60,13 @@ public class Main extends JavaPlugin {
         this.getCommand("setspawn").setTabCompleter(new SetSpawnTabCompleter(this));
         getLogger().info(ChatColor.GREEN + "Enabled GroupSpawn");
         setupPermissions();
+        new UpdateChecker(this, 12345).getVersion(version -> {
+            if (this.getDescription().getVersion().equalsIgnoreCase(version.replace("_", " "))) {
+                getLogger().info(ChatColor.GREEN + "No new version available. (" + version.replace("_", " ") + ")");
+            } else {
+                getLogger().info(ChatColor.GREEN + "A new version is available. Please download as fast as possible!" + " Your version: " + ChatColor.YELLOW + this.getDescription().getVersion() + ChatColor.GREEN + " New version: " + ChatColor.YELLOW + version.replace("_", " "));
+            }
+        });
         return;
 
 
